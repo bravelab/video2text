@@ -55,31 +55,12 @@ You can run the script to extract speech from an audio or video file and save th
 #### Command-Line Interface (CLI) Example:
 
 ```bash
-python script.py audio_path_to_audio_or_video_file -o output_text.txt --bucket your_gcs_bucket
+poetry run audi input_file/video_file.mpg -o output_text.txt --bucket your_gcs_bucket
 ```
 
 - `audio_path_to_audio_or_video_file`: The path to the audio or video file you want to transcribe.
 - `output_text.txt`: The output file where the transcribed text will be saved.
 - `your_gcs_bucket`: The Google Cloud Storage bucket where the audio file will be uploaded for transcription.
-
-#### Example in Python
-
-You can also run the script in a Python environment:
-
-```python
-from script import cli
-
-# Running the CLI function to extract speech from audio or video
-cli("path_to_audio_or_video.mp4", "output_text.txt", "your_gcs_bucket")
-```
-
-### Testing
-
-To run the tests, use:
-
-```bash
-pytest
-```
 
 ### License
 
