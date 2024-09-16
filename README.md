@@ -1,68 +1,86 @@
 
-# Video Text Extractor
+# Audio/Video to Text Extractor with Google Cloud Speech-to-Text
 
-**Video Text Extractor** is a Python package that extracts text from video frames using OpenCV and Tesseract OCR. This package allows you to process video files frame by frame, extract the text content, and return it for further analysis.
+This Python script extracts speech from audio or video files using **Google Cloud Speech-to-Text** and stores the transcribed text in a file. It automatically handles uploading long audio files to **Google Cloud Storage (GCS)** and processes both short and long audio files using Google Cloud's transcription APIs.
 
 ## Features
 
-- Extract text from video frames using Tesseract OCR
-- Process videos frame by frame
-- Simple interface to access the extracted text
+- Extract speech from both audio and video files (MP4, MKV, MOV, AVI).
+- Converts audio to the required format (16kHz, 16-bit mono PCM WAV).
+- Automatically uploads long audio files to Google Cloud Storage (GCS) for transcription.
+- Uses Google Cloud Speech-to-Text for transcribing speech from audio/video.
+- CLI-based usage for easy audio/video file processing.
 
 ## Requirements
 
-- Python 3.8+
-- OpenCV
-- Pytesseract
-- Tesseract-OCR (external dependency)
+- **Python 3.12+**
+- **FFmpeg** (for audio extraction and conversion)
+- **Google Cloud Speech-to-Text API** and **Google Cloud Storage**
+- Google Cloud Credentials (Service Account JSON)
 
-## Installation
+### Google Cloud Setup
 
-First, install **Tesseract-OCR**:
+1. Enable the **Google Cloud Speech-to-Text API** in the [Google Cloud Console](https://console.cloud.google.com/).
+2. Create a **Google Cloud Storage** bucket to upload audio files for transcription.
+3. Set up a service account with appropriate permissions and download the service account JSON key file.
+4. Set the environment variable for Google Cloud credentials:
+   ```bash
+   export GOOGLE_APPLICATION_CREDENTIALS="/path/to/your/credentials.json"
+   ```
 
-- On Linux:
+### Installation
+
+First, ensure **FFmpeg** is installed:
+
+- On **Linux**:
   ```bash
-  sudo apt-get install tesseract-ocr
+  sudo apt-get install ffmpeg
   ```
-  
-- On macOS:
+- On **macOS**:
   ```bash
-  brew install tesseract
+  brew install ffmpeg
   ```
+- On **Windows**, download the installer from the [FFmpeg website](https://ffmpeg.org/download.html).
 
-- On Windows, download the installer from [Tesseract OCR GitHub](https://github.com/tesseract-ocr/tesseract/wiki).
-
-Then, you can install the package dependencies using Poetry:
+Install the required dependencies:
 
 ```bash
 poetry install
 ```
 
-## Usage
+### Usage
 
-Here is a simple example to extract text from a video:
+You can run the script to extract speech from an audio or video file and save the transcribed text to a file.
 
-```python
-from video_text_extractor import VideoTextExtractor
+#### Command-Line Interface (CLI) Example:
 
-# Create an instance of the extractor
-extractor = VideoTextExtractor("path_to_your_video.mp4")
-
-# Extract text from the video
-text = extractor.extract_text()
-
-# Print the extracted text
-print(text)
+```bash
+python script.py audio_path_to_audio_or_video_file -o output_text.txt --bucket your_gcs_bucket
 ```
 
-## Testing
+- `audio_path_to_audio_or_video_file`: The path to the audio or video file you want to transcribe.
+- `output_text.txt`: The output file where the transcribed text will be saved.
+- `your_gcs_bucket`: The Google Cloud Storage bucket where the audio file will be uploaded for transcription.
+
+#### Example in Python
+
+You can also run the script in a Python environment:
+
+```python
+from script import cli
+
+# Running the CLI function to extract speech from audio or video
+cli("path_to_audio_or_video.mp4", "output_text.txt", "your_gcs_bucket")
+```
+
+### Testing
 
 To run the tests, use:
 
 ```bash
-poetry run pytest
+pytest
 ```
 
-## License
+### License
 
-This project is licensed under the MIT License.# video2text
+This project is licensed under the MIT License.
