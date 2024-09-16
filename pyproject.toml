@@ -1,0 +1,27 @@
+[tool.poetry]
+name = "video2text"
+version = "0.1.0"
+description = "Python package that extracts text from video frames using OpenCV and Tesseract OCR. This package allows you to process video files frame by frame, extract the text content, and return it for further analysis"
+authors = ["Mariusz Smenżyk <mariusz@bravelab.io>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+opencv-python = "^4.5.3"
+pytesseract = "^0.3.7"
+tqdm = "^4.66.5"
+click = "^8.1.7"
+
+moviepy = "^1.0.3"
+speechrecognition = "^3.10.4"
+google-cloud-speech = "^2.27.0"
+google-cloud-storage = "^2.18.2"
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.3"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+audio = "video2text:cli"
